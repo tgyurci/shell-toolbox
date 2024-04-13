@@ -27,6 +27,7 @@ RUN apk update \
 		socat \
 		strace \
 		tcpdump \
+		tini \
 		traceroute \
 		util-linux \
 		vim \
@@ -35,4 +36,6 @@ RUN apk update \
 COPY --from=rc /rc-base/rc/* /root/
 COPY root-rc/* /root/
 
-CMD ["zsh"]
+ENTRYPOINT [ "/sbin/tini", "--" ]
+
+CMD [ "zsh", "-l" ]
